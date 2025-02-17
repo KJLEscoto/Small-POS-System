@@ -13,7 +13,7 @@ class AuthController extends Controller
         return view('auth.login');
     }
 
-    public function login(Request $request)
+    public function adminLogin(Request $request)
     {
         // dd($request);
 
@@ -23,7 +23,45 @@ class AuthController extends Controller
         ]);
 
         if (Auth::attempt($data)) {
-            return redirect()->intended(route('home'));
+
+            $user = Auth::user();
+
+            if ($user->role != 'admin') {
+                Auth::logout();
+                throw ValidationException::withMessages([
+                    'invalid' => 'This user does not belong here.'
+                ]);
+            }
+
+            return redirect()->intended(route('dashboard.index'));
+        }
+
+        throw ValidationException::withMessages([
+            'invalid' => 'Invalid login credentials.'
+        ]);
+    }
+
+    public function cashierLogin(Request $request)
+    {
+        // dd($request);
+
+        $data = $request->validate([
+            'username' => 'required|string',
+            'password' => 'required'
+        ]);
+
+        if (Auth::attempt($data)) {
+
+            $user = Auth::user();
+
+            if ($user->role != 'cashier') {
+                Auth::logout();
+                throw ValidationException::withMessages([
+                    'invalid' => 'This user does not belong here.'
+                ]);
+            }
+
+            return redirect()->intended(route('cashier.index'));
         }
 
         throw ValidationException::withMessages([

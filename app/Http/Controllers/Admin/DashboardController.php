@@ -1,18 +1,18 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use App\Models\Cashier;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class CashierController extends Controller
+class DashboardController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        return view('admin.dashboard.index');
     }
 
     /**
@@ -34,7 +34,7 @@ class CashierController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Cashier $cashier)
+    public function show(string $id)
     {
         //
     }
@@ -42,7 +42,7 @@ class CashierController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Cashier $cashier)
+    public function edit(string $id)
     {
         //
     }
@@ -50,7 +50,7 @@ class CashierController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Cashier $cashier)
+    public function update(Request $request, string $id)
     {
         //
     }
@@ -58,7 +58,7 @@ class CashierController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Cashier $cashier)
+    public function destroy(string $id)
     {
         //
     }

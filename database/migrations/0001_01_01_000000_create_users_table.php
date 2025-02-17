@@ -12,7 +12,14 @@ return new class extends Migration {
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('username');
+            $table->string('first_name');
+            $table->string('last_name');
+            $table->string('middle_name')->nullable();
+            $table->enum('gender', ['male', 'female', 'other']);
+            $table->date('date_of_birth');
+            $table->enum('role', ['admin', 'cashier', 'manager'])->default('cashier');
+            $table->enum('status', ['active', 'inactive'])->default('active');
+            $table->string('username')->unique();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

@@ -3,6 +3,8 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+use App\Http\Middleware\RedirectBasedOnUserRole;
+use Illuminate\Support\Facades\Auth;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -11,8 +13,10 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        $middleware->redirectGuestsTo('/login');
-        $middleware->redirectUsersTo('/home');
+        $middleware->redirectGuestsTo('/');
+        $middleware->alias([
+            'user_role' => RedirectBasedOnUserRole::class
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
