@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 
 
 
+
 Route::middleware('guest')->group(function () {
     Route::view('/', 'welcome')->name('welcome');
 
@@ -25,5 +26,7 @@ Route::middleware(['auth', 'user_role:cashier'])->group(function () {
 Route::middleware(['auth', 'user_role:admin'])->group(function () {
     Route::resource('admin/dashboard', DashboardController::class);
 });
+
+Route::view('/forbidden', 'forbidden')->name('forbidden');
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');

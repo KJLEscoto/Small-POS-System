@@ -33,7 +33,7 @@ class AuthController extends Controller
                 ]);
             }
 
-            return redirect()->intended(route('dashboard.index'));
+            return redirect()->route('dashboard.index');
         }
 
         throw ValidationException::withMessages([
@@ -61,7 +61,7 @@ class AuthController extends Controller
                 ]);
             }
 
-            return redirect()->intended(route('cashier.index'));
+            return redirect()->route('cashier.index');
         }
 
         throw ValidationException::withMessages([

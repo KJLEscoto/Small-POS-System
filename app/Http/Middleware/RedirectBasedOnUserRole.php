@@ -23,7 +23,7 @@ class RedirectBasedOnUserRole
                 return $next($request);
             }
 
-            abort(403);
+            return redirect()->route('forbidden');
         }
         abort(401);
     }
