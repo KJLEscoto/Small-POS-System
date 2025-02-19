@@ -1,12 +1,15 @@
 <?php
 
+use App\Http\Controllers\Admin\CashierController as AdminCashierController;
 use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\InventoryController;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\Cashier\CashierController;
+use App\Http\Controllers\Cashier\CashierController as CashierCashierController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
 
-
+Route::view('/test', 'test');
 
 Route::middleware('guest')->group(function () {
     Route::view('/', 'welcome')->name('welcome');
@@ -20,11 +23,16 @@ Route::middleware('guest')->group(function () {
 
 
 Route::middleware(['auth', 'user_role:cashier'])->group(function () {
-    Route::resource('cashier', CashierController::class);
+    Route::resource('cashier', CashierCashierController::class);
 });
 
 Route::middleware(['auth', 'user_role:admin'])->group(function () {
     Route::resource('admin/dashboard', DashboardController::class);
+
+    Route::resource('admin/inventory', InventoryController::class);
+    Route::patch('/admin/inventory/{id}/restore', [InventoryController::class, 'restore'])->name('inventory.restore');
+
+    Route::resource('admin/cashiers', AdminCashierController::class);
 });
 
 Route::view('/forbidden', 'forbidden')->name('forbidden');

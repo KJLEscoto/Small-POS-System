@@ -1,3 +1,3 @@
 <x-main-layout>
-    dashboard here
+    cashiers here
 </x-main-layout>

@@ -1,3 +1,3 @@
 <x-main-layout>
-    dashboard here
+    products here
 </x-main-layout>

@@ -9,4 +9,7 @@ class Cashier extends Model
 {
     /** @use HasFactory<\Database\Factories\CashierFactory> */
     use HasFactory;
+
+    protected $guarded = [];
+
 }

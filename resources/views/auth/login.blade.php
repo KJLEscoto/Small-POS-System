@@ -48,7 +48,7 @@
 
                     <section class="w-full">
                         <button type="submit"
-                            class="rounded bg-gray-500 hover:bg-gray-600 text-white w-full px-4 py-2 font-semibold">Login</button>
+                            class="rounded bg-black hover:bg-black/80 text-white w-full px-4 py-2 font-semibold">Login</button>
                     </section>
                 </form>
             </div>
@@ -103,7 +103,7 @@
 
                     <section class="w-full">
                         <button type="submit"
-                            class="rounded bg-gray-500 hover:bg-gray-600 text-white w-full px-4 py-2 font-semibold">Login</button>
+                            class="rounded bg-black hover:bg-black/80 text-white w-full px-4 py-2 font-semibold">Login</button>
                     </section>
                 </form>
             </div>
