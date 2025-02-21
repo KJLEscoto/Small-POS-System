@@ -9,6 +9,54 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <style>
+        .material-symbols--delete {
+            display: inline-block;
+            --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23000' d='M7 21q-.825 0-1.412-.587T5 19V6H4V4h5V3h6v1h5v2h-1v13q0 .825-.587 1.413T17 21zm2-4h2V8H9zm4 0h2V8h-2z'/%3E%3C/svg%3E");
+            background-color: currentColor;
+            -webkit-mask-image: var(--svg);
+            mask-image: var(--svg);
+            -webkit-mask-repeat: no-repeat;
+            mask-repeat: no-repeat;
+            -webkit-mask-size: 100% 100%;
+            mask-size: 100% 100%;
+        }
+
+        .ri--edit-fill {
+            display: inline-block;
+            --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23000' d='M7.243 17.997H3v-4.243L14.435 2.319a1 1 0 0 1 1.414 0l2.829 2.828a1 1 0 0 1 0 1.415zm-4.243 2h18v2H3z'/%3E%3C/svg%3E");
+            background-color: currentColor;
+            -webkit-mask-image: var(--svg);
+            mask-image: var(--svg);
+            -webkit-mask-repeat: no-repeat;
+            mask-repeat: no-repeat;
+            -webkit-mask-size: 100% 100%;
+            mask-size: 100% 100%;
+        }
+
+        .ic--round-plus {
+            display: inline-block;
+            --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23000' d='M18 12.998h-5v5a1 1 0 0 1-2 0v-5H6a1 1 0 0 1 0-2h5v-5a1 1 0 0 1 2 0v5h5a1 1 0 0 1 0 2'/%3E%3C/svg%3E");
+            background-color: currentColor;
+            -webkit-mask-image: var(--svg);
+            mask-image: var(--svg);
+            -webkit-mask-repeat: no-repeat;
+            mask-repeat: no-repeat;
+            -webkit-mask-size: 100% 100%;
+            mask-size: 100% 100%;
+        }
+
+        .material-symbols--archive-rounded {
+            display: inline-block;
+            --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23000' d='M5 21q-.825 0-1.412-.587T3 19V6.525q0-.35.113-.675t.337-.6L4.7 3.725q.275-.35.687-.538T6.25 3h11.5q.45 0 .863.188t.687.537l1.25 1.525q.225.275.338.6t.112.675V19q0 .825-.587 1.413T19 21zm.4-15h13.2l-.85-1H6.25zm6.6 4q-.425 0-.712.288T11 11v3.2l-.9-.9q-.275-.275-.7-.275t-.7.275t-.275.7t.275.7l2.6 2.6q.3.3.7.3t.7-.3l2.6-2.6q.275-.275.275-.7t-.275-.7t-.7-.275t-.7.275l-.9.9V11q0-.425-.288-.712T12 10'/%3E%3C/svg%3E");
+            background-color: currentColor;
+            -webkit-mask-image: var(--svg);
+            mask-image: var(--svg);
+            -webkit-mask-repeat: no-repeat;
+            mask-repeat: no-repeat;
+            -webkit-mask-size: 100% 100%;
+            mask-size: 100% 100%;
+        }
+
         .mdi--cash-register {
             display: inline-block;
             --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%23000' d='M2 17h20v4H2zM6.25 7H9V6H6V3h8v3h-3v1h6.8c1 0 2 1 2.2 2l.5 7h-17l.55-7c0-1 1-2 2.2-2M13 9v2h5V9zM6 9v1h2V9zm3 0v1h2V9zm-3 2v1h2v-1zm3 0v1h2v-1zm-3 2v1h2v-1zm3 0v1h2v-1zM7 4v1h6V4z'/%3E%3C/svg%3E");
@@ -77,7 +125,10 @@
 
 
     {{-- admin layout --}}
-    @if (Request::routeIs('dashboard*') || Request::routeIs('inventory*') || Request::routeIs('cashier*'))
+    @if (Request::routeIs('dashboard*') ||
+            Request::routeIs('inventory*') ||
+            Request::routeIs('cashiers*') ||
+            Request::routeIs('bin*'))
         <main class="grid grid-cols-12 w-full h-full">
 
             {{-- sidebar --}}
@@ -85,30 +136,31 @@
                 class="col-span-2 w-full h-[calc(100vh)] overflow-auto bg-white border-r shadow-lg flex flex-col justify-between">
                 <div class="flex flex-col w-full">
                     <x-sidebar-menu routeName="dashboard.index">
-                        <div class="w-auto h-auto">
+                        <div class="w-auto h-auto flex items-center gap-2">
                             <span class="ic--round-dashboard w-6 h-6"></span>
+                            <p class="text-nowrap">Dashboard</p>
                         </div>
-                        <p>Dashboard</p>
                     </x-sidebar-menu>
                     <x-sidebar-menu routeName="inventory.index">
-                        <div class="w-auto h-auto">
+                        <div class="w-auto h-auto flex items-center gap-2">
                             <span class="solar--cart-4-bold w-6 h-6"></span>
+                            <p class="text-nowrap">Inventory</p>
                         </div>
-                        <p>Inventory</p>
                     </x-sidebar-menu>
                     <x-sidebar-menu routeName="cashiers.index">
-                        <div class="w-auto h-auto">
+                        <div class="w-auto h-auto flex items-center gap-2">
                             <span class="mdi--cash-register w-6 h-6"></span>
+                            <p class="text-nowrap">Cashiers</p>
                         </div>
-                        <p>Cashiers</p>
                     </x-sidebar-menu>
                 </div>
 
                 <button onclick="openLogoutModal()"
-                    class="w-full bg-red-500 hover:bg-red-600 px-7 py-4 flex gap-2 items-center text-white"
-                    type="submit">
-                    <div class="majesticons--logout !w-6 !h-6"></div>
-                    <p class="font-semibold">Logout</p>
+                    class="w-full bg-red-500 hover:bg-red-600 px-7 py-4 flex gap-2 text-white" type="submit">
+                    <div class="w-auto h-auto flex items-center gap-2">
+                        <span class="majesticons--logout w-6 h-6"></span>
+                        <p class="text-nowrap">Logout</p>
+                    </div>
                 </button>
 
                 <div id="logoutModal"
@@ -148,6 +200,12 @@
             <section class="col-span-10 w-full h-[calc(100vh)] p-5 overflow-auto">
                 {{ $slot }}
             </section>
+        </main>
+    @elseif (Request::routeIs('cashier*'))
+        <main>
+            Products
+
+            {{ $slot }}
         </main>
     @else
         {{-- guest layout --}}

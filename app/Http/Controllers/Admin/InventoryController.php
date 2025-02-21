@@ -16,7 +16,6 @@ class InventoryController extends Controller
     {
         $categories = Category::all();
         $products = Product::latest()->with('category')->paginate(20);
-        $trashedProducts = Product::onlyTrashed()->get();
         // $allProducts = Product::withTrashed()->get();
 
         // $products = Product::with('category')
@@ -27,7 +26,6 @@ class InventoryController extends Controller
         return view('admin.inventory.index', [
             'categories' => $categories,
             'products' => $products,
-            'trashedProducts' => $trashedProducts,
         ]);
     }
 
@@ -125,22 +123,6 @@ class InventoryController extends Controller
 
         $product->delete();
 
-        return back()->with('success', "Product '{$product->name}' has been archived!");
-    }
-
-    public function restore(string $id)
-    {
-        $product = Product::onlyTrashed()->where('id', $id)->firstOrFail();
-        $product->restore();
-
-        return back()->with('success', "Product '{$product->name}' has been restored!");
-    }
-
-    public function forceDelete(string $id)
-    {
-        $product = Product::onlyTrashed()->where('id', $id)->firstOrFail();
-        $product->forceDelete();
-
-        return back()->with('success', "Product '{$product->name}' has been permanently deleted!");
+        return back()->with('success', "Product '{$product->name}' has been put in the bin!");
     }
 }
