@@ -1,13 +1,15 @@
 @props(['msg'])
 
 @if (session($msg) || $errors->has($msg))
-    <span class="flex items-center justify-center">
-        <div id="flash-message-container" class="fixed top-5 z-[60] transform scale-50 opacity-0 animate-popup">
-            <p
-                class="w-[400px] h-auto py-5 px-5 text-center rounded text-white {{ $msg == 'success' ? 'bg-green-500' : ($msg == 'update' ? 'bg-blue-500' : 'bg-red-500') }}">
-                {{ session($msg) ?? $errors->first($msg) }}
-            </p>
-        </div>
+    <span class="fixed top-5 z-[60] transform scale-50 opacity-0 ">
+        <span class="flex items-center justify-center">
+            <div id="flash-message-container" class="animate-popup">
+                <p
+                    class="w-[400px] h-auto py-5 px-5 text-center rounded text-white {{ $msg == 'success' ? 'bg-green-500' : ($msg == 'update' ? 'bg-blue-500' : 'bg-red-500') }}">
+                    {{ session($msg) ?? $errors->first($msg) }}
+                </p>
+            </div>
+        </span>
     </span>
 @endif
 

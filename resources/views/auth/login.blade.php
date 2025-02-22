@@ -14,7 +14,7 @@
                 @endif
 
                 <form action="{{ route('cashier.login') }}" method="POST"
-                    class="w-1/3 flex flex-col items-center gap-7 p-7 border border-gray-200 shadow-md bg-white rounded-md">
+                    class="w-1/3 flex flex-col items-center gap-7 p-7 border border-gray-200 shadow-md bg-white rounded">
                     @csrf
 
                     <section class="flex items-center gap-2">
@@ -26,7 +26,7 @@
                         <label for="username">Username</label>
                         <input value="{{ old('username') }}" type="text" name="username" id="username"
                             @class([
-                                'w-full border px-3 py-2 rounded',
+                                'w-full border px-3 py-2',
                                 'border-red-500' => $errors->has('username'),
                             ])>
                         @error('username')
@@ -38,7 +38,7 @@
                         <label for="password">Password</label>
                         <input value="{{ old('password') }}" type="password" name="password" id="password"
                             @class([
-                                'w-full border px-3 py-2 rounded',
+                                'w-full border px-3 py-2',
                                 'border-red-500' => $errors->has('password'),
                             ])>
                         @error('password')
@@ -68,7 +68,7 @@
                 @endif
 
                 <form action="{{ route('admin.login') }}" method="POST"
-                    class="w-1/3 flex flex-col items-center gap-7 p-7 border border-gray-200 shadow-md bg-white rounded-md">
+                    class="w-1/3 flex flex-col items-center gap-7 p-7 border border-gray-200 shadow-md bg-white rounded">
                     @csrf
 
                     <section class="flex items-center gap-2">
@@ -80,7 +80,7 @@
                         <label for="username">Username</label>
                         <input value="{{ old('username') }}" type="text" name="username" id="username"
                             @class([
-                                'w-full border px-3 py-2 rounded',
+                                'w-full border px-3 py-2',
                                 'border-red-500' => $errors->has('username'),
                             ])>
                         @error('username')
@@ -92,7 +92,7 @@
                         <label for="password">Password</label>
                         <input value="{{ old('password') }}" type="password" name="password" id="password"
                             @class([
-                                'w-full border px-3 py-2 rounded',
+                                'w-full border px-3 py-2',
                                 'border-red-500' => $errors->has('password'),
                             ])>
                         @error('password')

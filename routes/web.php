@@ -36,6 +36,7 @@ Route::middleware(['auth', 'user_role:admin'])->group(function () {
 
     // patch-update-some
     Route::patch('admin/inventory/bin/{id}/restore', [AdminBinController::class, 'restore'])->name('bin.restore');
+    Route::patch('admin/inventory/bin/{id}/forceDelete', [AdminBinController::class, 'forceDelete'])->name('bin.forceDelete');
 });
 
 Route::view('forbidden', 'forbidden')->name('forbidden');

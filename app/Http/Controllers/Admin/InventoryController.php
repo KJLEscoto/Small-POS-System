@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class InventoryController extends Controller
 {
@@ -15,17 +16,18 @@ class InventoryController extends Controller
     public function index()
     {
         $categories = Category::all();
-        $products = Product::latest()->with('category')->paginate(20);
-        // $allProducts = Product::withTrashed()->get();
 
-        // $products = Product::with('category')
-        //     ->orderByRaw('ISNULL(deleted_at), deleted_at DESC') 
-        //     ->orderByDesc('created_at')
-        //     ->paginate(20);
+        $products = Product::with('category')
+            ->orderByDesc('updated_at')
+            ->orderByDesc('created_at')
+            ->paginate(10);
+
+        $bins = Product::latest()->with('category')->onlyTrashed()->get();
 
         return view('admin.inventory.index', [
             'categories' => $categories,
             'products' => $products,
+            'bins' => $bins
         ]);
     }
 
@@ -44,16 +46,28 @@ class InventoryController extends Controller
     {
         // dd($request);
 
+
+        // dd($image);
+
         $request->validate([
             "product_name" => "required|string|max:255",
+            "product_image" => "nullable|file|max:2000|mimes:png,jpg,jpeg,webp",
             "product_category" => "required|exists:categories,id",
             "product_stock" => "required|integer|min:0",
             "product_original_price" => "required|numeric|min:0",
             "product_selling_price" => "required|numeric|min:0",
         ]);
 
+        $image_path = null;
+
+        if ($request->hasFile('product_image')) {
+            $image_path = Storage::disk('public')->put('product_images', $request->product_image);
+        }
+
+
         $product = Product::create([
             "name" => $request->product_name,
+            "image" => $image_path,
             "category_id" => $request->product_category,
             "stock" => $request->product_stock,
             "original_price" => $request->product_original_price,
@@ -88,6 +102,7 @@ class InventoryController extends Controller
 
         $request->validate([
             'product_name' => 'required|string|max:255',
+            "product_image" => "nullable|file|max:2000|mimes:png,jpg,jpeg,webp",
             'product_category' => 'required|exists:categories,id',
             'product_stock' => 'required|integer|min:0',
             'product_original_price' => 'required|numeric|min:0',
@@ -97,6 +112,15 @@ class InventoryController extends Controller
         // Fetch product using parameter ID
         $product = Product::find($id);
 
+        $image_path = $product->image ?? null;
+
+        if ($request->hasFile('product_image')) {
+            if ($product->image) {
+                Storage::disk('public')->delete($product->image);
+            }
+            $image_path = Storage::disk('public')->put('product_images', $request->product_image);
+        }
+
         // Check if product exists
         if (!$product) {
             return back()->with('invalid', 'Product not found.');
@@ -105,6 +129,7 @@ class InventoryController extends Controller
         // Update product details
         $product->update([
             'name' => $request->product_name,
+            'image' => $image_path,
             'category_id' => $request->product_category,
             'stock' => $request->product_stock,
             'original_price' => $request->product_original_price,
@@ -123,6 +148,6 @@ class InventoryController extends Controller
 
         $product->delete();
 
-        return back()->with('success', "Product '{$product->name}' has been put in the bin!");
+        return back()->with('success', "Product '{$product->name}' has been moved to the bin!");
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class BinController extends Controller
 {
@@ -76,6 +77,11 @@ class BinController extends Controller
     public function forceDelete(string $id)
     {
         $product = Product::onlyTrashed()->where('id', $id)->firstOrFail();
+
+        if ($product->image) {
+            Storage::disk('public')->delete($product->image);
+        }
+
         $product->forceDelete();
 
         return back()->with('success', "Product '{$product->name}' has been permanently deleted!");
