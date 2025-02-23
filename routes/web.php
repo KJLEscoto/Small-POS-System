@@ -1,9 +1,10 @@
 <?php
 
-use App\Http\Controllers\Admin\BinController as AdminBinController;
+use App\Http\Controllers\Admin\BinProductController as AdminBinProductController;
 use App\Http\Controllers\Admin\CashierController as AdminCashierController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Admin\InventoryController as AdminInventoryController;
+use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Cashier\CashierController as CashierCashierController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProductController;
@@ -31,12 +32,13 @@ Route::middleware(['auth', 'user_role:admin'])->group(function () {
     // resources
     Route::resource('admin/dashboard', AdminDashboardController::class)->only(['index']);
     Route::resource('admin/inventory', AdminInventoryController::class)->except(['create', 'show', 'edit']);
-    Route::resource('admin/inventory/bin', AdminBinController::class)->only(['index']);
+    Route::resource('admin/inventory/bin', AdminBinProductController::class)->only(['index']);
+    Route::resource('admin/category', AdminCategoryController::class);
     Route::resource('admin/cashiers', AdminCashierController::class);
 
-    // patch-update-some
-    Route::patch('admin/inventory/bin/{id}/restore', [AdminBinController::class, 'restore'])->name('bin.restore');
-    Route::patch('admin/inventory/bin/{id}/forceDelete', [AdminBinController::class, 'forceDelete'])->name('bin.forceDelete');
+    // patch
+    Route::patch('admin/inventory/bin/{id}/restore', [AdminBinProductController::class, 'restore'])->name('bin.restore');
+    Route::patch('admin/inventory/bin/{id}/forceDelete', [AdminBinProductController::class, 'forceDelete'])->name('bin.forceDelete');
 });
 
 Route::view('forbidden', 'forbidden')->name('forbidden');

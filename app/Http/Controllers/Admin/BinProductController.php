@@ -7,7 +7,7 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
-class BinController extends Controller
+class BinProductController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,8 @@ class BinController extends Controller
     public function index()
     {
         $trashedProducts = Product::onlyTrashed()->get();
-        return view('admin.inventory.bin.index', ['archives' => $trashedProducts]);
+        $totalTrashed = Product::onlyTrashed()->count();
+        return view('admin.inventory.bin.index', ['archives' => $trashedProducts, 'totalTrashed' => $totalTrashed]);
     }
 
     /**

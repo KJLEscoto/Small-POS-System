@@ -12,6 +12,8 @@ class Product extends Model
     /** @use HasFactory<\Database\Factories\ProductFactory> */
     use HasFactory;
 
+    protected $table = 'products';
+
     use SoftDeletes; // Enable soft deletes
 
     protected $fillable = [

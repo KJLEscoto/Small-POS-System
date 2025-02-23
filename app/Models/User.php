@@ -23,6 +23,8 @@ class User extends Authenticatable
     //     'password',
     // ];
 
+    protected $table = 'users';
+
     protected $guarded = [];
 
     /**

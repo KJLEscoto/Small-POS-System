@@ -22,12 +22,15 @@ class InventoryController extends Controller
             ->orderByDesc('created_at')
             ->paginate(10);
 
+        $totalProducts = Product::count();
+
         $bins = Product::latest()->with('category')->onlyTrashed()->get();
 
         return view('admin.inventory.index', [
             'categories' => $categories,
             'products' => $products,
-            'bins' => $bins
+            'totalProducts' => $totalProducts,
+            'bins' => $bins,
         ]);
     }
 

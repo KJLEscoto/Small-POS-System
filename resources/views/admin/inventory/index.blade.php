@@ -7,11 +7,11 @@
         <x-flash-msg msg="update" />
     @endif
 
-    <div class="w-full flex justify-between items-center gap-5">
+    <div class="w-full flex justify-between items-end gap-5">
         <section class="flex items-start gap-1 text-lg font-bold">
             <h1>Products</h1>
-            @if ($products->count() != 0)
-                <span class="text-sm">({{ $products->count() }})</span>
+            @if ($totalProducts != 0)
+                <span class="text-sm">({{ $totalProducts }})</span>
             @endif
         </section>
         <section class="flex items-center gap-2">
@@ -37,7 +37,7 @@
 
     <table class="w-full border-collapse border border-gray-300 mt-5 shadow-lg rounded overflow-hidden">
         <thead>
-            <tr class="*:px-6 *:py-3 *:text-left *:text-sm *:font-semibold *:bg-gray-500 *:text-white *:text-nowrap">
+            <tr class="*:px-6 *:py-3 *:text-left *:text-sm *:font-semibold *:bg-gray-700 *:text-white *:text-nowrap">
                 <th>#</th>
                 <th>Product Image</th>
                 <th>Product Name</th>
@@ -45,12 +45,13 @@
                 <th>Stock</th>
                 <th>Original Price</th>
                 <th>Selling Price</th>
+                {{-- <th>Date Added</th> --}}
                 <th class="flex items-center justify-center">Actions</th>
             </tr>
         </thead>
         <tbody>
             @forelse ($products as $index => $product)
-                <tr class="border hover:bg-gray-100 bg-white *:px-6 *:py-4 *:text-nowrap">
+                <tr class="border hover:bg-gray-50 bg-white *:px-6 *:py-4 *:text-nowrap">
                     <td>{{ $index + 1 }}</td>
                     <td>
                         @if ($product->image)
@@ -64,10 +65,11 @@
                         @endif
                     </td>
                     <td>{{ $product->name }}</td>
-                    <td>{{ $product->category->name }}</td>
+                    <td>{{ $product->category->type }}</td>
                     <td>{{ $product->stock }}</td>
                     <td>₱{{ number_format($product->original_price, 2) }}</td>
                     <td>₱{{ number_format($product->selling_price, 2) }}</td>
+                    {{-- <td>{{ $product->created_at->format('M. d, Y | h:i A') }}</td> --}}
                     <td class="m-auto">
                         <div class="flex items-center justify-center gap-2">
                             <div class="relative group">
@@ -110,7 +112,8 @@
     </div>
 
     {{-- Image Scale Preview --}}
-    <div id="imagePreviewModal" class="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 hidden">
+    <div id="imagePreviewModal"
+        class="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 hidden z-20">
         <div class="relative bg-white p-4 rounded shadow-lg">
             <div class="w-full flex justify-end">
                 <button type="button" onclick="closeImageModal()" class="w-fit text-gray-500 hover:text-red-500">
@@ -123,7 +126,7 @@
 
     {{-- Add Product Modal --}}
     <div id="addProductModal"
-        class="fixed inset-0 flex justify-center items-center overflow-auto bg-gray-900 bg-opacity-50 hidden">
+        class="fixed inset-0 flex justify-center items-center overflow-auto bg-gray-900 bg-opacity-50 hidden z-20">
         <form action="{{ route('inventory.store') }}" method="POST"
             class="bg-white rounded-lg shadow-lg p-6 w-1/3 h-[500px] overflow-auto" enctype="multipart/form-data">
             @csrf
@@ -155,7 +158,7 @@
                             ]) name="product_category" id="product_category">
                                 <option value="{{ old('product_category') }}" disabled selected>Select</option>
                                 @foreach ($categories as $category)
-                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                    <option value="{{ $category->id }}">{{ $category->type }}</option>
                                 @endforeach
                             </select>
                             @error('product_category')
@@ -235,7 +238,7 @@
 
     {{-- Edit Product Modal --}}
     <div id="editProductModal"
-        class="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 hidden">
+        class="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 z-20 hidden">
         <form id="editProductForm" action="" method="POST" enctype="multipart/form-data"
             class="bg-white rounded-lg shadow-lg p-6 w-1/3 h-[500px] overflow-auto overflow-auto">
             @csrf
@@ -266,11 +269,11 @@
                         <label class="font-medium" for="edit_product_category">Product Category</label>
                         <select @class([
                             'w-full border px-3 py-2',
-                            'border-red-500' => $errors->has('product_name'),
+                            'border-red-500' => $errors->has('product_category'),
                         ]) name="product_category" id="edit_product_category">
                             <option disabled>Select</option>
                             @foreach ($categories as $category)
-                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                <option value="{{ $category->id }}">{{ $category->type }}</option>
                             @endforeach
                         </select>
                         @error('product_category')
@@ -358,7 +361,7 @@
 
     <!-- Delete Confirmation Modal -->
     <div id="deleteProductModal"
-        class="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 hidden">
+        class="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 z-20 hidden">
         <div class="bg-white rounded-lg shadow-lg p-6 flex flex-col items-center justify-center gap-4 w-1/3">
             <div class="w-full h-auto text-orange-500 px-5 flex flex-col items-center justify-center">
                 <span class="material-symbols--delete w-16 h-16"></span>
@@ -416,8 +419,13 @@
         }
 
         function closeAddProductModal() {
-            document.getElementById('addProductModal').classList.add('hidden');
-            document.querySelector('form').reset();
+            const modal = document.getElementById('addProductModal');
+            modal.classList.add('hidden');
+
+            // Reset the specific form inside the modal
+            modal.querySelector('form').reset();
+
+            // Hide the image preview
             document.getElementById('imagePreview').classList.add('hidden');
         }
 

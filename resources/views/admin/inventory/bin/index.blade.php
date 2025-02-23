@@ -10,8 +10,8 @@
     <div class="w-full flex justify-between items-center gap-5">
         <section class="flex items-start gap-1 text-lg font-bold">
             <h1>Recycle Bin</h1>
-            @if ($archives->count() != 0)
-                <span class="text-sm">({{ $archives->count() }})</span>
+            @if ($totalTrashed != 0)
+                <span class="text-sm">({{ $totalTrashed }})</span>
             @endif
         </section>
         <a href="{{ route('inventory.index') }}" class="px-5 py-2 rounded bg-black hover:bg-black/80 text-white">
@@ -24,7 +24,7 @@
 
     <table class="w-full border border-gray-300 text-left mt-5">
         <thead>
-            <tr class="*:px-6 *:py-3 *:text-left *:text-sm *:font-semibold *:bg-gray-500 *:text-white *:text-nowrap">
+            <tr class="*:px-6 *:py-3 *:text-left *:text-sm *:font-semibold *:bg-gray-700 *:text-white *:text-nowrap">
                 <th>#</th>
                 <th>Product Image</th>
                 <th>Product Name</th>
@@ -37,7 +37,7 @@
         </thead>
         <tbody>
             @forelse ($archives as $index => $product)
-                <tr class="border hover:bg-gray-100 bg-white *:px-6 *:py-4 *:text-nowrap">
+                <tr class="border hover:bg-gray-50 bg-white *:px-6 *:py-4 *:text-nowrap">
                     <td>{{ $index + 1 }}</td>
                     <td>
                         @if ($product->image)
