@@ -15,7 +15,7 @@
             @endif
         </section>
         <section class="flex items-center gap-2">
-            <button onclick="openAddProductModal()" class="px-5 py-2 rounded bg-black hover:bg-black/80 text-white">
+            <button onclick="openAddProductModal()" class="px-5 py-2 rounded bg-gray-700 hover:bg-gray-700/80 text-white">
                 <div class="w-auto h-auto flex items-center gap-2">
                     <span class="ic--round-plus w-5 h-5"></span>
                     <p class="text-nowrap">New Product</p>
@@ -54,15 +54,19 @@
                 <tr class="border hover:bg-gray-50 bg-white *:px-6 *:py-4 *:text-nowrap">
                     <td>{{ $index + 1 }}</td>
                     <td>
-                        @if ($product->image)
-                            <img class="w-28 h-auto cursor-pointer hover:scale-105 transition duration-200 ease-in"
-                                src="{{ asset('storage/' . $product->image) }}"
-                                onclick="openImageModal('{{ asset('storage/' . $product->image) }}')">
-                        @else
-                            <img class="w-28 h-auto cursor-pointer hover:scale-105 transition duration-200 ease-in"
-                                src="{{ asset('storage/product_images/no_image.jpeg') }}"
-                                onclick="openImageModal('{{ asset('storage/product_images/no_image.jpeg') }}')">
-                        @endif
+                        <div class="w-auto h-auto">
+                            <div class="w-28 h-auto cursor-pointer overflow-hidden">
+                                @if ($product->image)
+                                    <img class="w-full h-full object-cover hover:scale-105 transition duration-200 ease-in"
+                                        src="{{ asset('storage/' . $product->image) }}"
+                                        onclick="openImageModal('{{ asset('storage/' . $product->image) }}')">
+                                @else
+                                    <img class="w-full h-full object-cover hover:scale-105 transition duration-200 ease-in"
+                                        src="{{ asset('storage/product_images/no_image.jpeg') }}"
+                                        onclick="openImageModal('{{ asset('storage/product_images/no_image.jpeg') }}')">
+                                @endif
+                            </div>
+                        </div>
                     </td>
                     <td>{{ $product->name }}</td>
                     <td>{{ $product->category->type }}</td>
@@ -226,10 +230,11 @@
 
             <div class="flex justify-end mt-7 space-x-3">
                 <button type="button" onclick="closeAddProductModal()"
-                    class="px-8 py-2 text-black rounded border border-gray-300 hover:border-black">
+                    class="px-5 py-2 text-black rounded border border-gray-300 hover:border-black">
                     Cancel
                 </button>
-                <button type="submit" class="px-8 py-2 bg-black text-white rounded hover:bg-black/80 font-semibold">
+                <button type="submit"
+                    class="px-5 py-2 bg-gray-700 text-white rounded hover:bg-gray-700/80 font-semibold">
                     Add
                 </button>
             </div>
@@ -348,11 +353,11 @@
             <!-- Action Buttons -->
             <div class="flex justify-end mt-7 space-x-3">
                 <button type="button" onclick="closeEditProductModal()"
-                    class="px-8 py-2 text-black rounded border border-gray-300 hover:border-black">
+                    class="px-5 py-2 text-black rounded border border-gray-300 hover:border-black">
                     Cancel
                 </button>
                 <button type="submit"
-                    class="px-8 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 font-semibold">
+                    class="px-5 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 font-semibold">
                     Update
                 </button>
             </div>

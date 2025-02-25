@@ -54,7 +54,7 @@ class InventoryController extends Controller
 
         $request->validate([
             "product_name" => "required|string|max:255",
-            "product_image" => "nullable|file|max:2000|mimes:png,jpg,jpeg,webp",
+            "product_image" => "nullable|file|mimes:jpeg,png,jpg,gif,svg|max:2048",
             "product_category" => "required|exists:categories,id",
             "product_stock" => "required|integer|min:0",
             "product_original_price" => "required|numeric|min:0",

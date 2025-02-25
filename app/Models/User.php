@@ -37,6 +37,10 @@ class User extends Authenticatable
         'remember_token',
     ];
 
+    // protected $casts = [
+    //     , // Ensures it's always treated as a Carbon instance
+    // ];
+
     /**
      * Get the attributes that should be cast.
      *
@@ -46,7 +50,15 @@ class User extends Authenticatable
     {
         return [
             'email_verified_at' => 'datetime',
+            'date_of_birth' => 'date',
             'password' => 'hashed',
         ];
+    }
+
+    public function fullName()
+    {
+        return ucwords($this->first_name . ' ' .
+            ($this->middle_name ? substr($this->middle_name, 0, 1) . '. ' : '') .
+            $this->last_name);
     }
 }

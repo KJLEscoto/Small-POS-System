@@ -15,7 +15,8 @@
             @endif
         </section>
         <section class="flex items-center gap-2">
-            <button onclick="openAddCategoryModal()" class="px-5 py-2 rounded bg-black hover:bg-black/80 text-white">
+            <button onclick="openAddCategoryModal()"
+                class="px-5 py-2 rounded bg-gray-700 hover:bg-gray-700/80 text-white">
                 <div class="w-auto h-auto flex items-center gap-2">
                     <span class="ic--round-plus w-5 h-5"></span>
                     <p class="text-nowrap">New Category</p>
@@ -138,10 +139,11 @@
 
             <div class="flex justify-end mt-7 space-x-3">
                 <button type="button" onclick="closeAddCategoryModal()"
-                    class="px-8 py-2 text-black rounded border border-gray-300 hover:border-black">
+                    class="px-5 py-2 text-black rounded border border-gray-300 hover:border-black">
                     Cancel
                 </button>
-                <button type="submit" class="px-8 py-2 bg-black text-white rounded hover:bg-black/80 font-semibold">
+                <button type="submit"
+                    class="px-5 py-2 bg-gray-700 text-white rounded hover:bg-gray-700/80 font-semibold">
                     Add
                 </button>
             </div>
@@ -231,11 +233,11 @@
 
             <div class="flex justify-end mt-7 space-x-3">
                 <button type="button" onclick="closeEditCategoryModal()"
-                    class="px-8 py-2 text-black rounded border border-gray-300 hover:border-black">
+                    class="px-5 py-2 text-black rounded border border-gray-300 hover:border-black">
                     Cancel
                 </button>
                 <button type="submit"
-                    class="px-8 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 font-semibold">
+                    class="px-5 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 font-semibold">
                     Update
                 </button>
             </div>

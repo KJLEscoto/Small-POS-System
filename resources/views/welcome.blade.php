@@ -6,12 +6,12 @@
                 <p class="text-lg">Continue as</p>
                 <div class="flex items-center justify-evenly w-full gap-7">
                     <a href="{{ route('show.cashier.login') }}"
-                        class="px-8 w-full justify-center py-3 rounded bg-black hover:bg-black/80 text-white font-semibold flex gap-2 items-center">
+                        class="5 w-full justify-center py-3 rounded bg-gray-700 hover:bg-gray-700/80 text-white font-semibold flex gap-2 items-center">
                         <span class="mdi--cash-register w-7 h-7"></span>
                         <p>Cashier</p>
                     </a>
                     <a href="{{ route('show.admin.login') }}"
-                        class="px-8 w-full justify-center py-3 rounded bg-black hover:bg-black/80 text-white font-semibold flex gap-2 items-center">
+                        class="px-5 w-full justify-center py-3 rounded bg-gray-700 hover:bg-gray-700/80 text-white font-semibold flex gap-2 items-center">
                         <span class="eos-icons--admin w-7 h-7"></span>
                         <p>Admin</p>
                     </a>

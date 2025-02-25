@@ -14,7 +14,8 @@
                 <span class="text-sm">({{ $totalTrashed }})</span>
             @endif
         </section>
-        <a href="{{ route('inventory.index') }}" class="px-5 py-2 rounded bg-black hover:bg-black/80 text-white">
+        <a href="{{ route('inventory.index') }}"
+            class="px-5 py-2 text-black rounded border border-gray-300 hover:border-black">
             <div class="w-auto h-auto flex items-center gap-2">
                 <span class="pajamas--go-back w-4 h-4"></span>
                 <p class="text-nowrap">Back</p>
@@ -98,7 +99,7 @@
 
     {{-- delete modal --}}
     <div id="deleteProductModal"
-        class="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 hidden">
+        class="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 z-20 hidden">
         <div class="bg-white rounded-lg shadow-lg p-6 flex flex-col items-center justify-center gap-4 w-1/3">
             <div class="w-full h-auto text-red-500 px-5 flex flex-col items-center justify-center">
                 <span class="material-symbols--delete w-16 h-16"></span>

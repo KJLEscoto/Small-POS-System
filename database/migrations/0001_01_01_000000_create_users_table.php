@@ -15,9 +15,10 @@ return new class extends Migration {
             $table->string('first_name');
             $table->string('last_name');
             $table->string('middle_name')->nullable();
-            $table->enum('gender', ['male', 'female', 'other']);
+            $table->enum('gender', ['male', 'female']);
             $table->date('date_of_birth');
-            $table->enum('role', ['admin', 'cashier', 'manager'])->default('cashier');
+            $table->string('image')->nullable();
+            $table->enum('role', ['admin', 'cashier'])->default('cashier');
             $table->enum('status', ['active', 'inactive'])->default('active');
             $table->string('username')->unique();
             $table->string('email')->unique();
