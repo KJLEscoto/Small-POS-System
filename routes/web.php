@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Cashier\CashierController as CashierCashierController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProductController;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Route;
 
 
@@ -26,7 +27,11 @@ Route::middleware('guest')->group(function () {
 
 Route::middleware(['auth', 'user_role:cashier'])->group(function () {
     Route::resource('cashier', CashierCashierController::class);
+    Route::resource('product', ProductController::class);
+
+    Route::post('/cashier/purchase', [CashierCashierController::class, 'store'])->name('cashier.purchase.store');
 });
+
 
 Route::middleware(['auth', 'user_role:admin'])->group(function () {
     // resources

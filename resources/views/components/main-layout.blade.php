@@ -309,11 +309,91 @@
                 {{ $slot }}
             </section>
         </main>
-    @elseif (Request::routeIs('cashier*'))
-        <main>
-            Products
+    @elseif (Request::routeIs('cashier.index') || 
+    (Request::routeIs('product.index'))
+    )
+        <main class="grid grid-cols-12 w-full h-full">
+            {{-- sidebar --}}
+            <aside id="sidebar"
+                class="col-span-2 w-full h-[calc(100vh)] overflow-auto bg-white border-r shadow-lg flex flex-col justify-between z-10">
 
-            {{ $slot }}
+                <section>
+                    <div class="py-5 px-3">
+                        <x-sidebar-logo />
+                    </div>
+
+                    <div class="flex flex-col w-full px-3">
+                        <x-sidebar-menu routeName="cashier.index">
+                            <div class="w-auto h-auto flex items-center gap-3">
+                                <span class="ic--round-dashboard w-6 h-6"></span>
+                                <p class="text-nowrap">Dashboard</p>
+                            </div>
+                        </x-sidebar-menu>
+                        <x-sidebar-menu routeName="product.index">
+                            <div class="w-auto h-auto flex items-center gap-3">
+                                <span class="solar--cart-4-bold w-6 h-6"></span>
+                                <p class="text-nowrap">Products</p>
+                            </div>
+                        </x-sidebar-menu>
+                        <x-sidebar-menu routeName="category.index">
+                            <div class="w-auto h-auto flex items-center gap-3">
+                                <span class="material-symbols--category-rounded w-6 h-6"></span>
+                                <p class="text-nowrap">Category</p>
+                            </div>
+                        </x-sidebar-menu>
+                        <x-sidebar-menu routeName="cashiers.index">
+                            <div class="w-auto h-auto flex items-center gap-3">
+                                <span class="mdi--cash-register w-6 h-6"></span>
+                                <p class="text-nowrap">Cashiers</p>
+                            </div>
+                        </x-sidebar-menu>
+                    </div>
+                </section>
+
+                <button onclick="openLogoutModal()"
+                    class="w-full bg-red-500 hover:bg-red-600 px-7 py-4 flex gap-2 text-white" type="submit">
+                    <div class="w-auto h-auto flex items-center gap-3">
+                        <span class="majesticons--logout w-6 h-6"></span>
+                        <p class="text-nowrap">Logout</p>
+                    </div>
+                </button>
+
+                <div id="logoutModal"
+                    class="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 hidden">
+                    <div class="bg-white rounded-lg shadow-lg p-6 w-96">
+                        <h2 class="text-xl font-bold text-black">Confirm Logout</h2>
+                        <p class="text-gray-600 mt-2">Are you sure you want to log out?</p>
+
+                        <div class="flex justify-end mt-7 space-x-3">
+                            <button onclick="closeLogoutModal()"
+                                class="px-5 py-2 text-black rounded border border-gray-300 hover:border-black">
+                                Cancel
+                            </button>
+                            <form action="{{ route('logout') }}" method="POST" class="inline">
+                                @csrf
+                                <button type="submit"
+                                    class="px-5 py-2 bg-red-500 text-white rounded hover:bg-red-600 font-semibold">
+                                    Logout
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <script>
+                    function openLogoutModal() {
+                        document.getElementById('logoutModal').classList.remove('hidden');
+                    }
+
+                    function closeLogoutModal() {
+                        document.getElementById('logoutModal').classList.add('hidden');
+                    }
+                </script>
+            </aside>
+
+            <section class="col-span-10 w-full h-[calc(100vh)] p-10 overflow-auto">
+                {{ $slot }}
+            </section>
         </main>
     @else
         {{-- guest layout --}}
