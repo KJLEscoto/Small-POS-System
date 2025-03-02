@@ -5,6 +5,8 @@ use App\Http\Controllers\Admin\CashierController as AdminCashierController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Admin\InventoryController as AdminInventoryController;
 use App\Http\Controllers\Admin\CategoryController as AdminCategoryController;
+use App\Http\Controllers\Admin\CustomerController as AdminCustomerController;
+use App\Http\Controllers\Admin\SalesController as AdminSalesController;
 use App\Http\Controllers\Cashier\CashierController as CashierCashierController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProductController;
@@ -35,6 +37,8 @@ Route::middleware(['auth', 'user_role:admin'])->group(function () {
     Route::resource('admin/inventory/bin', AdminBinProductController::class)->only(['index']);
     Route::resource('admin/category', AdminCategoryController::class);
     Route::resource('admin/cashiers', AdminCashierController::class);
+    Route::resource('admin/customers', AdminCustomerController::class);
+    Route::resource('admin/sales', AdminSalesController::class)->only(['index']);
 
     // patch
     Route::patch('admin/inventory/bin/{id}/restore', [AdminBinProductController::class, 'restore'])->name('bin.restore');

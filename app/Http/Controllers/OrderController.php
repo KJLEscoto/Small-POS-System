@@ -1,27 +1,18 @@
 <?php
 
-namespace App\Http\Controllers\Cashier;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Models\Category;
-use App\Models\Customer;
-use App\Models\Product;
+use App\Models\Order;
 use Illuminate\Http\Request;
 
-class CashierController extends Controller
+class OrderController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $products = Product::with('category')->get();
-        $customers = Customer::all();
-
-        return view('cashier.index', [
-            'products' => $products,
-            'customers' => $customers
-        ]);
+        //
     }
 
     /**
@@ -43,7 +34,7 @@ class CashierController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Order $order)
     {
         //
     }
@@ -51,7 +42,7 @@ class CashierController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Order $order)
     {
         //
     }
@@ -59,7 +50,7 @@ class CashierController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Order $order)
     {
         //
     }
@@ -67,7 +58,7 @@ class CashierController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Order $order)
     {
         //
     }

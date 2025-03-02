@@ -1,27 +1,18 @@
 <?php
 
-namespace App\Http\Controllers\Cashier;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Category;
-use App\Models\Customer;
-use App\Models\Product;
 use Illuminate\Http\Request;
 
-class CashierController extends Controller
+class SalesController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $products = Product::with('category')->get();
-        $customers = Customer::all();
-
-        return view('cashier.index', [
-            'products' => $products,
-            'customers' => $customers
-        ]);
+        return view('admin.sales.index');
     }
 
     /**

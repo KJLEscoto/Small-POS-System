@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Category;
+use App\Models\Customer;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -17,6 +18,11 @@ class DatabaseSeeder extends Seeder
     {
 
         // Category::factory(4)->create();
+
+        Customer::create([
+            'name' => 'robin',
+            'balance' => 101.75,
+        ]);
 
         $this->call([
             UserSeeder::class,

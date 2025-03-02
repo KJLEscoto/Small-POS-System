@@ -41,7 +41,7 @@
                             src="{{ asset('storage/' . $cashier->image) }}" />
                     @else
                         <img id="imagePreview" class="w-full h-full object-cover"
-                            src="{{ asset('storage/product_images/no_image.jpeg') }}" />
+                            src="{{ asset('storage/user_images/default-user.jpg') }}" />
                     @endif
                 </div>
             </div>
@@ -205,6 +205,32 @@
                     'border-red-500' => $errors->has('email'),
                 ]) type="email" name="email" value="{{ $cashier->email }}">
                 @error('email')
+                    <p class="text-red-500 font-semibold tracking-wider text-sm select-none">
+                        {{ $message }}
+                    </p>
+                @enderror
+            </section>
+        </div>
+        <div class="grid grid-cols-2 gap-5">
+            <section class="flex flex-col gap-1 w-full">
+                <label class="font-medium">Password</label>
+                <input @class([
+                    'w-full border px-3 py-2',
+                    'border-red-500' => $errors->has('password'),
+                ]) type="password" name="password">
+                @error('password')
+                    <p class="text-red-500 font-semibold tracking-wider text-sm select-none">
+                        {{ $message }}
+                    </p>
+                @enderror
+            </section>
+            <section class="flex flex-col gap-1 w-full">
+                <label class="font-medium">Confirm Password</label>
+                <input @class([
+                    'w-full border px-3 py-2',
+                    'border-red-500' => $errors->has('password_confirmation'),
+                ]) type="password" name="password_confirmation">
+                @error('password_confirmation')
                     <p class="text-red-500 font-semibold tracking-wider text-sm select-none">
                         {{ $message }}
                     </p>

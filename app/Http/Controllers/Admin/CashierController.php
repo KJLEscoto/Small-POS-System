@@ -84,6 +84,7 @@ class CashierController extends Controller
      */
     public function update(Request $request, string $username)
     {
+        // dd($request);
 
         // Find the user
         $cashier = User::whereUsername($username)->firstOrFail();
@@ -100,6 +101,7 @@ class CashierController extends Controller
             "date_of_birth" => "required|date|before:today",
             "username" => "required|string|min:4|max:50|unique:users,username," . $cashier->id,
             "email" => "required|email|unique:users,email," . $cashier->id,
+            "password" => "nullable|confirmed|min:8",
         ]);
 
         $image_path = $cashier->image ?? null;
@@ -128,6 +130,7 @@ class CashierController extends Controller
             "date_of_birth" => $request->date_of_birth,
             "username" => $request->username,
             "email" => $request->email,
+            "password" => $request->password,
         ]);
 
         return redirect()->back()->with('update', 'Cashier updated successfully!');

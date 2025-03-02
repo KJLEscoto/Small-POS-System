@@ -27,7 +27,7 @@
                         <img class="w-full h-full object-cover" src="{{ asset('storage/' . $cashier->image) }}" />
                     @else
                         <img class="w-full h-full object-cover"
-                            src="{{ asset('storage/product_images/no_image.jpeg') }}" />
+                            src="{{ asset('storage/user_images/default-user.jpg') }}" />
                     @endif
                 </div>
             </div>
@@ -74,6 +74,26 @@
                 </div>
             </div>
         </section>
+    </div>
+
+    <div class="mt-5 rounded bg-white shadow-md flex divide-x divide-gray-200 h-auto">
+        <div class="p-5 h-full flex flex-col justify-center gap-4">
+            <p class="text-xs font-medium">Sales</p>
+            {{-- <div class="grid grid-cols-3">
+                    <section class="flex items-center gap-2">
+                        <p class="text-sm text-gray-700">Username:</p>
+                        <h1 class=" font-medium">{{ $cashier->username }}</h1>
+                    </section>
+                    <section class="flex items-center gap-2">
+                        <p class="text-sm text-gray-700">Email:</p>
+                        <h1 class=" font-medium">{{ $cashier->email }}</h1>
+                    </section>
+                    <section class="flex items-center gap-2">
+                        <p class="text-sm text-gray-700">Account Started:</p>
+                        <h1 class=" font-medium">{{ $cashier->created_at->format('M d, Y') }}</h1>
+                    </section>
+                </div> --}}
+        </div>
     </div>
 
 </x-main-layout>

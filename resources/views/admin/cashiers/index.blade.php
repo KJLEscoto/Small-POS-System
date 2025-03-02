@@ -32,7 +32,7 @@
                             <img class="w-full h-full object-cover" src="{{ asset('storage/' . $cashier->image) }}" />
                         @else
                             <img class="w-full h-full object-cover"
-                                src="{{ asset('storage/product_images/no_image.jpeg') }}" />
+                                src="{{ asset('storage/user_images/default-user.jpg') }}" />
                         @endif
                     </div>
                 </div>

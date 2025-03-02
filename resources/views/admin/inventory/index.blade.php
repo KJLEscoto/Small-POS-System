@@ -43,7 +43,7 @@
                 <th>Product Name</th>
                 <th>Category</th>
                 <th>Stock</th>
-                <th>Original Price</th>
+                <th>Market Price</th>
                 <th>Selling Price</th>
                 {{-- <th>Date Added</th> --}}
                 <th class="flex items-center justify-center">Actions</th>
@@ -201,7 +201,7 @@
                     </section>
 
                     <section class="flex flex-col gap-1">
-                        <label class="font-medium" for="product_original_price">Original Price</label>
+                        <label class="font-medium" for="product_original_price">Original Price (Market Price)</label>
                         <input @class([
                             'w-full border px-3 py-2',
                             'border-red-500' => $errors->has('product_original_price'),
@@ -245,7 +245,7 @@
     <div id="editProductModal"
         class="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50 z-20 hidden">
         <form id="editProductForm" action="" method="POST" enctype="multipart/form-data"
-            class="bg-white rounded-lg shadow-lg p-6 w-1/3 h-[500px] overflow-auto overflow-auto">
+            class="bg-white rounded-lg shadow-lg p-6 w-1/3 h-[500px] overflow-auto">
             @csrf
             @method('PUT')
 

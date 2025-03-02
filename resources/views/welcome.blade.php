@@ -2,7 +2,7 @@
     <main class="w-full h-screen">
         <div class="flex items-center justify-center h-full">
             <div class="w-1/3 flex flex-col items-center gap-7">
-                <h1 class="text-xl font-bold">WELCOME TO SMALL POS SYSTEM</h1>
+                <h1 class="text-xl font-bold">WELCOME TO SARI-SARI POS SYSTEM</h1>
                 <p class="text-lg">Continue as</p>
                 <div class="flex items-center justify-evenly w-full gap-7">
                     <a href="{{ route('show.cashier.login') }}"
